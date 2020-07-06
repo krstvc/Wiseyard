@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Wiseyard.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:helpers="using:Wiseyard.Helpers"
+    xmlns:views="using:Wiseyard.Views"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    mc:Ignorable="d">
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
+    <Frame x:Name="MainFrame">
+        <winui:NavigationView
+        x:Name="navigationView"
+        IsBackButtonVisible="Visible"
+        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Top"
+        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+            <winui:NavigationView.MenuItems>
+                <winui:NavigationViewItem x:Uid="Shell_Home" x:Name="HomeTab" helpers:NavHelper.NavigateTo="views:MainPage" />
+                <winui:NavigationViewItem x:Uid="Shell_IncomeDataGrid" x:Name="IncomeTab" helpers:NavHelper.NavigateTo="views:IncomeDataGridPage" />
+                <winui:NavigationViewItem x:Uid="Shell_IncomeChart" x:Name="IncomeChartTab" helpers:NavHelper.NavigateTo="views:IncomeChartPage" />
+                <winui:NavigationViewItem x:Uid="Shell_ExpenseDataGrid" x:Name="ExpenseTab" helpers:NavHelper.NavigateTo="views:ExpenseDataGridPage" />
+                <winui:NavigationViewItem x:Uid="Shell_ExpenseChart" x:Name="ExpenseChartTab" helpers:NavHelper.NavigateTo="views:ExpenseChartPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Jobs" x:Name="JobsTab" helpers:NavHelper.NavigateTo="views:JobsPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Employees" x:Name="EmployeesTab" helpers:NavHelper.NavigateTo="views:EmployeesPage" />
+            </winui:NavigationView.MenuItems>
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemInvoked">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <Grid>
+                <Frame x:Name="shellFrame" />
+            </Grid>
+        </winui:NavigationView>
+    </Frame>
+</Page>
